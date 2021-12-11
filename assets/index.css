@@ -1,0 +1,7 @@
+section {
+  @apply container;
+}
+
+input {
+  @apply border my-2;
+}
