@@ -6,4 +6,4 @@ exports.getUser = function (req, res) {
   }
 
   return res.json(req.session.dUser)
-};
+}

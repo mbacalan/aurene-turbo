@@ -5,7 +5,12 @@ const { pollEmojis, pollEmojiUnicodes } = require('../../data/emoji')
 
 class Controller {
   getConfig (req, res) {
-    return res.json(bot.user)
+    const botUser = {
+      ...bot.user,
+      activity: bot.user.presence
+    }
+
+    return res.json(botUser)
   }
 
   async updateNick (req, res) {
@@ -39,8 +44,6 @@ class Controller {
   updateActivity (req, res) {
     let { activity, type } = req.body
 
-    console.log(activity, type)
-
     if (type.length) {
       type = type.toUpperCase()
     }
@@ -58,6 +61,7 @@ class Controller {
 
   async createPoll (req, res) {
     const guild = bot.guilds.cache.get(req.body.guild)
+    // TODO: Dynamic channel
     const channel = bot.channels.cache.get('729370843280441414')
 
     if (!guild || !channel) {
