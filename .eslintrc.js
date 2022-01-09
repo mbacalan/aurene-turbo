@@ -16,6 +16,7 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
-    eqeqeq: 0
+    eqeqeq: 0,
+    'prefer-const': 0
   }
 }
