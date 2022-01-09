@@ -1,14 +1,31 @@
 <template>
-  <div class="nick">
-    <label>
-      Nick:
-      <input v-model="nick" type="text" maxlength="20">
-    </label>
+  <v-form>
+    <v-container>
+      <v-row>
+        <v-col
+          cols="12"
+          sm="6"
+        >
+          <v-text-field
+            v-model="nick"
+            label="Nickname"
+            hide-details="auto"
+            outlined
+            dense
+          />
+        </v-col>
 
-    <button type="submit" @click.prevent="setNick">
-      Submit
-    </button>
-  </div>
+        <v-col
+          cols="12"
+          sm="6"
+        >
+          <v-btn type="submit" color="primary" @click.prevent="setNick">
+            Submit
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-form>
 </template>
 
 <script>
@@ -18,7 +35,7 @@ export default {
   name: 'Nick',
   data () {
     return {
-      nick: ''
+      nick: this.$store.state.botUser.username
     }
   },
   computed: {
@@ -43,7 +60,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>

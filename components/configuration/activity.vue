@@ -1,25 +1,47 @@
 <template>
-  <div class="activity">
-    <label>
-      Activity:
-      <input v-model="activity" type="text">
-    </label>
+  <v-form>
+    <v-container>
+      <v-row>
+        <v-col
+          cols="12"
+          sm="6"
+        >
+          <v-text-field
+            v-model="activity"
+            label="Activity Text"
+            hide-details="auto"
+            outlined
+            dense
+          />
+        </v-col>
 
-    <label>
-      Activity Type:
-      <select v-model="activityType" name="activity_type">
-        <option disabled>Pick One</option>
-        <option value="playing" selected>PLAYING</option>
-        <option value="streaming">STREAMING</option>
-        <option value="watching">WATCHING</option>
-        <option value="listening">LISTENING</option>
-      </select>
-    </label>
+        <v-col
+          cols="12"
+          sm="6"
+        >
+          <v-select
+            v-model="activityType"
+            :items="activityTypes"
+            label="Activity Type"
+            hide-details="auto"
+            outlined
+            dense
+          />
+        </v-col>
+      </v-row>
 
-    <button type="submit" @click.prevent="setActivity">
-      Submit
-    </button>
-  </div>
+      <v-row>
+        <v-col
+          cols="12"
+          sm="6"
+        >
+          <v-btn type="submit" color="primary" @click.prevent="setActivity">
+            Submit
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-form>
 </template>
 
 <script>
@@ -30,6 +52,7 @@ export default {
   data () {
     return {
       activity: '',
+      activityTypes: ['Playing', 'Streaming', 'Watching', 'Listening'],
       activityType: 'playing'
     }
   },
@@ -55,7 +78,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>

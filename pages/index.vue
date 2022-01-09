@@ -1,40 +1,35 @@
 <template>
   <div id="app">
-    <h1 class="title">
-      Aurene Dashboard
-    </h1>
+    <div v-if="loggedIn" class="user">
+      <p>
+        Welcome, {{ user.username }}#{{ user.discriminator }}!
+      </p>
 
-    <nav>
-      <NuxtLink
-        v-if="loggedIn"
-        to="/dashboard"
-      >
-        Servers
-      </NuxtLink>
+      <p>Select a server below to manage Aurene on.</p>
+    </div>
 
-      <a
-        v-if="loggedIn"
-        href="#"
-        @click="logout"
-      >
-        Logout
-      </a>
+    <div v-if="!loggedIn" class="guest">
+      <p>
+        Welcome, Guest. Log in to gain access to the dashboard!
+      </p>
 
       <NuxtLink
         v-if="!loggedIn"
         to="/login"
       >
-        Login
+        Log in
       </NuxtLink>
-    </nav>
-
-    <div v-if="loggedIn" class="user">
-      Welcome {{ user.username }}#{{ user.discriminator }}
     </div>
 
-    <div v-if="!loggedIn" class="guest">
-      Welcome, Guest. Log in to gain access to the dashboard!
-    </div>
+    <section v-if="loggedIn" class="servers">
+      <ul class="server-list">
+        <li v-for="guild in user.guilds" :key="guild.id">
+          <NuxtLink :to="guild.id">
+            {{ guild.name }}
+          </NuxtLink>
+        </li>
+      </ul>
+    </section>
   </div>
 </template>
 
@@ -82,7 +77,7 @@ export default {
         const user = await response.json()
 
         this.$store.commit('login', user)
-        this.$router.push('servers')
+        this.$router.push('/')
       }
     },
     async logout () {
@@ -94,20 +89,9 @@ export default {
 
       if (request.ok) {
         this.$store.commit('logout')
-        this.$router.push('home')
+        this.$router.push('/')
       }
     }
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

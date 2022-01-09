@@ -1,14 +1,32 @@
 <template>
-  <div class="prefix">
-    <label>
-      Prefix:
-      <input v-model="prefix" type="text" maxlength="1">
-    </label>
+  <v-form>
+    <v-container>
+      <v-row>
+        <v-col
+          cols="12"
+          sm="6"
+        >
+          <v-text-field
+            v-model="prefix"
+            label="Prefix"
+            hide-details="auto"
+            maxlength="1"
+            outlined
+            dense
+          />
+        </v-col>
 
-    <button type="submit" @click.prevent="setPrefix">
-      Submit
-    </button>
-  </div>
+        <v-col
+          cols="12"
+          sm="6"
+        >
+          <v-btn type="submit" color="primary" @click.prevent="setPrefix">
+            Submit
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-form>
 </template>
 
 <script>
@@ -43,7 +61,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>

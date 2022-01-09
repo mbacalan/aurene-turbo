@@ -1,31 +1,67 @@
 <template>
-  <div class="poll">
-    <label>
-      Poll Title
-      <input v-model="title" type="text" name="title">
-    </label>
+  <v-form>
+    <v-container>
+      <v-row>
+        <v-col
+          cols="12"
+        >
+          <v-text-field
+            v-model="title"
+            label="Poll Title"
+            hide-details="auto"
+            outlined
+            dense
+          />
+        </v-col>
+      </v-row>
 
-    <div class="flex">
-      <label>
-        Add Option
-        <input v-model="newOption" type="text" name="option">
-      </label>
+      <v-row>
+        <v-col
+          cols="12"
+          sm="6"
+        >
+          <v-text-field
+            v-model="newOption"
+            label="Add Option"
+            hide-details="auto"
+            outlined
+            dense
+          />
+        </v-col>
 
-      <button @click="addPollOption">
-        Add
-      </button>
-    </div>
+        <v-col
+          cols="12"
+          sm="6"
+        >
+          <v-btn type="submit" color="primary" @click.prevent="addPollOption">
+            Add
+          </v-btn>
+        </v-col>
+      </v-row>
 
-    <div>
-      <p v-for="(option, index) in options" :key="index">
-        {{ option }}
-      </p>
-    </div>
+      <v-row v-if="options.length">
+        <v-col cols="6">
+          <div v-for="(option, index) in options" :key="index" class="d-flex">
+            <p class="mr-auto">
+              {{ index + 1 }} - {{ option }}
+            </p>
 
-    <button type="submit" @click.prevent="createPoll">
-      Create Poll
-    </button>
-  </div>
+            <v-icon @click="deletePollOption(index)">
+              mdi-close
+            </v-icon>
+          </div>
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col cols="12">
+          <v-btn type="submit" color="primary" @click.prevent="createPoll">
+            Create Poll
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-form>
 </template>
 
 <script>
@@ -51,6 +87,9 @@ export default {
 
       this.options.push(this.newOption)
       this.newOption = ''
+    },
+    deletePollOption (index) {
+      this.options.splice(index, 1)
     },
     async createPoll () {
       if (this.options.length <= 1) {
