@@ -1,4 +1,5 @@
-const { userHttpClient } = require('../../utils/axios')
+const { httpClient } = require('../../utils/axios')
+const { bot } = require('../../utils/bot')
 
 class Controller {
   async login (req, res) {
@@ -16,12 +17,12 @@ class Controller {
     })
 
     try {
-      const { data: tokens } = await userHttpClient.post(
+      const { data: tokens } = await httpClient.post(
         '/oauth2/token',
         this.data
       )
 
-      const { data: user } = await userHttpClient.get('/users/@me',
+      const { data: user } = await httpClient.get('/users/@me',
         {
           headers: {
             authorization: `${tokens.token_type} ${tokens.access_token}`
@@ -29,7 +30,7 @@ class Controller {
         }
       )
 
-      let { data: guilds } = await userHttpClient.get('/users/@me/guilds',
+      let { data: guilds } = await httpClient.get('/users/@me/guilds',
         {
           headers: {
             authorization: `${tokens.token_type} ${tokens.access_token}`
@@ -37,6 +38,7 @@ class Controller {
         }
       )
 
+      user.avatar = bot.user.displayAvatarURL() // not the correct avatar
       guilds = guilds.filter(guild => guild.owner == true)
 
       req.session.dTokens = tokens
