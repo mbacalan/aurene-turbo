@@ -1,6 +1,7 @@
 export const state = () => ({
   loggedIn: false,
   user: {},
+  botUser: {},
   guild: ''
 })
 
@@ -15,5 +16,8 @@ export const mutations = {
   },
   setGuild (state, guild) {
     state.guild = guild
+  },
+  setBotUser (state, botUser) {
+    state.botUser = botUser
   }
 }
