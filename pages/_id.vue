@@ -5,39 +5,20 @@
     </p>
 
     <div v-if="loggedIn">
-      <div class="d-flex align-center mb-8">
-        <v-avatar size="48" class="mr-4">
-          <img :src="user.avatar" :alt="user.username">
-        </v-avatar>
+      <v-navigation :menus="menus" />
 
-        <p class="mb-0">
-          {{ user.username }}#{{ user.discriminator }} on {{ guild.name }}
-        </p>
-      </div>
+      <div v-for="(menu, index) in menus" :key="index">
+        <div v-if="activeMenu == index" class="mb-2">
+          <h2 class="mb-4">
+            {{ menu.title }}
+          </h2>
 
-      <div class="mb-2">
-        <h2 class="mb-4">
-          General Configuration
-        </h2>
-
-        <nick />
-        <prefix />
-      </div>
-
-      <div class="mb-2">
-        <h2 class="mb-4">
-          Activity Settings
-        </h2>
-
-        <activity />
-      </div>
-
-      <div class="mb-2">
-        <h2 class="mb-4">
-          Poll Creation
-        </h2>
-
-        <poll />
+          <component
+            :is="component"
+            v-for="component in menu.components"
+            :key="component"
+          />
+        </div>
       </div>
     </div>
   </section>
@@ -45,27 +26,43 @@
 
 <script>
 import { mapState } from 'vuex'
+import vNavigation from '~/components/navigation.vue'
 
 export default {
   name: 'Dashboard',
+  components: { vNavigation },
   middleware: ['auth'],
+  data () {
+    return {
+      menus: [
+        {
+          title: 'General',
+          icon: 'mdi-application-cog',
+          components: ['nick', 'prefix']
+        },
+        {
+          title: 'Activity',
+          icon: 'mdi-account-cog',
+          components: ['activity']
+        },
+        {
+          title: 'Poll',
+          icon: 'mdi-poll',
+          components: ['poll']
+        }
+      ]
+    }
+  },
   computed: {
-    ...mapState(['loggedIn', 'user', 'botUser', 'guild'])
+    ...mapState(['loggedIn', 'user', 'botUser', 'guild', 'activeMenu'])
   },
   async mounted () {
     const guild = this.user.guilds.find(guild => guild.id === this.$route.params.id)
     this.$store.commit('setGuild', guild)
-    await this.getBotUser()
+    await this.setBotUser()
   },
   methods: {
-    checkLogin () {
-      if (!this.loggedIn) {
-        setTimeout(() => {
-          this.$router.push('/')
-        }, 3000)
-      }
-    },
-    async getBotUser () {
+    async setBotUser () {
       const response = await fetch(`http://localhost:8080/api/servers/${this.guild.id}/config/`, {
         mode: 'cors',
         credentials: 'include'
