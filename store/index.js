@@ -2,7 +2,8 @@ export const state = () => ({
   loggedIn: false,
   user: {},
   botUser: {},
-  guild: ''
+  guild: '',
+  activeMenu: 0
 })
 
 export const mutations = {
@@ -19,5 +20,8 @@ export const mutations = {
   },
   setBotUser (state, botUser) {
     state.botUser = botUser
+  },
+  setActiveMenu (state, menu) {
+    state.activeMenu = menu
   }
 }
