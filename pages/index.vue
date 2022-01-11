@@ -1,27 +1,34 @@
 <template>
   <div id="app">
-    <div v-if="loggedIn" class="user">
-      <p>
-        Welcome, {{ user.username }}#{{ user.discriminator }}!
-      </p>
-
-      <p>Select a server below to manage Aurene on.</p>
-    </div>
-
-    <div v-if="!loggedIn" class="guest">
+    <div v-if="!loggedIn">
       <p>
         Welcome, Guest. Log in to gain access to the dashboard!
       </p>
 
-      <NuxtLink
-        v-if="!loggedIn"
-        to="/login"
-      >
+      <NuxtLink v-if="!loggedIn" to="/login">
         Log in
       </NuxtLink>
     </div>
 
-    <section v-if="loggedIn" class="servers">
+    <div v-if="loggedIn">
+      <div class="d-flex align-center mb-4">
+        <h2>Welcome to Aurene Dashboard</h2>
+
+        <div class="d-flex align-center ml-auto">
+          <p class="mb-0 mr-4">
+            {{ user.username }}#{{ user.discriminator }}
+          </p>
+
+          <v-avatar size="48">
+            <img :src="user.avatar" :alt="user.username">
+          </v-avatar>
+        </div>
+      </div>
+
+      <p>Select a server below to manage Aurene on.</p>
+    </div>
+
+    <section v-if="loggedIn">
       <ul class="server-list">
         <li v-for="guild in user.guilds" :key="guild.id">
           <NuxtLink :to="guild.id">
@@ -39,7 +46,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'Home',
   computed: {
-    ...mapState(['loggedIn', 'user'])
+    ...mapState(['loggedIn', 'user', 'guild'])
   },
   async beforeMount () {
     const response = await fetch('http://localhost:8080/api/user', {
