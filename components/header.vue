@@ -1,9 +1,5 @@
 <template>
-  <v-app-bar
-    color="deep-purple accent-4"
-    dense
-    dark
-  >
+  <v-app-bar color="deep-purple accent-4" dense dark app clipped-left>
     <v-toolbar-title>
       <NuxtLink to="/">
         Aurene Dashboard
@@ -11,10 +7,6 @@
     </v-toolbar-title>
 
     <v-spacer />
-
-    <v-btn icon>
-      <v-icon>mdi-heart</v-icon>
-    </v-btn>
 
     <v-btn v-if="loggedIn" icon @click="logout">
       <v-icon>mdi-exit-to-app</v-icon>

@@ -1,10 +1,9 @@
 <template>
   <v-app>
+    <v-header />
+
     <v-main>
-      <v-header />
-      <!-- Provides the application the proper gutter -->
       <v-container>
-        <!-- If using vue-router -->
         <Nuxt />
       </v-container>
     </v-main>
@@ -13,5 +12,8 @@
 
 <script>
 import vHeader from '~/components/header.vue'
-export default { components: { vHeader } }
+
+export default {
+  components: { vHeader }
+}
 </script>
