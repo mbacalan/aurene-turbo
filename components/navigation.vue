@@ -1,0 +1,56 @@
+<template>
+  <v-navigation-drawer app bottom clipped>
+    <v-list-item>
+      <v-list-item-content>
+        <v-list-item-title class="text-h6">
+          {{ guild.name }}
+        </v-list-item-title>
+
+        <v-list-item-subtitle>
+          {{ user.username }}#{{ user.discriminator }}
+        </v-list-item-subtitle>
+      </v-list-item-content>
+    </v-list-item>
+
+    <v-list dense rounded nav>
+      <v-list-item
+        v-for="(menu, index) in menus"
+        :key="menu.title"
+        :color="activeMenu == index ? 'purple' : 'white'"
+        @click="setActiveMenu(index)"
+      >
+        <v-list-item-icon>
+          <v-icon>{{ menu.icon }}</v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-content>
+          <v-list-item-title>
+            {{ menu.title }}
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+    </v-list>
+  </v-navigation-drawer>
+</template>
+
+<script>
+import { mapState } from 'vuex'
+
+export default {
+  name: 'Navigation',
+  props: {
+    menus: {
+      type: Array,
+      required: true
+    }
+  },
+  computed: {
+    ...mapState(['user', 'guild', 'activeMenu'])
+  },
+  methods: {
+    setActiveMenu (menu) {
+      this.$store.commit('setActiveMenu', menu)
+    }
+  }
+}
+</script>
