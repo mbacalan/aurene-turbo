@@ -2,12 +2,10 @@
   <v-form>
     <v-container>
       <v-row>
-        <v-col
-          cols="12"
-        >
+        <v-col cols="12" sm="6">
           <v-text-field
             v-model="title"
-            label="Poll Title"
+            label="Title"
             hide-details="auto"
             outlined
             dense
@@ -16,23 +14,17 @@
       </v-row>
 
       <v-row>
-        <v-col
-          cols="12"
-          sm="6"
-        >
+        <v-col cols="12" sm="6">
           <v-text-field
             v-model="newOption"
-            label="Add Option"
+            label="Option"
             hide-details="auto"
             outlined
             dense
           />
         </v-col>
 
-        <v-col
-          cols="12"
-          sm="6"
-        >
+        <v-col cols="12" sm="6">
           <v-btn type="submit" color="primary" @click.prevent="addPollOption">
             Add
           </v-btn>
