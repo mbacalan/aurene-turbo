@@ -1,5 +1,5 @@
 <template>
-  <v-form>
+  <v-form @submit.prevent="setNick">
     <v-container>
       <v-row>
         <v-col cols="12" sm="6">
@@ -9,11 +9,12 @@
             hide-details="auto"
             outlined
             dense
+            required
           />
         </v-col>
 
         <v-col cols="12" sm="6">
-          <v-btn type="submit" color="primary" @click.prevent="setNick">
+          <v-btn type="submit" color="primary" :loading="loading">
             Submit
           </v-btn>
         </v-col>
@@ -29,6 +30,7 @@ export default {
   name: 'Nick',
   data () {
     return {
+      loading: false,
       nick: this.$store.state.botUser.username
     }
   },
@@ -37,6 +39,8 @@ export default {
   },
   methods: {
     async setNick () {
+      this.loading = true
+
       const response = await fetch(`http://localhost:8080/api/servers/${this.guild.id}/nick/`, {
         method: 'PATCH',
         mode: 'cors',
@@ -50,6 +54,8 @@ export default {
       if (response.ok) {
         alert('Success')
       }
+
+      this.loading = false
     }
   }
 }

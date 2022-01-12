@@ -1,5 +1,5 @@
 <template>
-  <v-form>
+  <v-form @submit.prevent="setActivity">
     <v-container>
       <v-row>
         <v-col cols="12" sm="6">
@@ -9,6 +9,7 @@
             hide-details="auto"
             outlined
             dense
+            required
           />
         </v-col>
       </v-row>
@@ -22,13 +23,14 @@
             hide-details="auto"
             outlined
             dense
+            required
           />
         </v-col>
       </v-row>
 
       <v-row>
         <v-col cols="12" sm="6">
-          <v-btn type="submit" color="primary" @click.prevent="setActivity">
+          <v-btn type="submit" color="primary" :loading="loading">
             Submit
           </v-btn>
         </v-col>
@@ -44,6 +46,7 @@ export default {
   name: 'Activity',
   data () {
     return {
+      loading: false,
       activity: '',
       activityTypes: ['Playing', 'Streaming', 'Watching', 'Listening'],
       activityType: 'playing'
@@ -54,6 +57,8 @@ export default {
   },
   methods: {
     async setActivity () {
+      this.loading = true
+
       const response = await fetch(`http://localhost:8080/api/servers/${this.guild.id}/activity/`, {
         method: 'PATCH',
         mode: 'cors',
@@ -67,6 +72,8 @@ export default {
       if (response.ok) {
         alert('Success')
       }
+
+      this.loading = false
     }
   }
 }

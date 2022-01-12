@@ -1,5 +1,5 @@
 <template>
-  <v-form>
+  <v-form @submit.prevent="setPrefix">
     <v-container>
       <v-row>
         <v-col cols="12" sm="6">
@@ -14,7 +14,7 @@
         </v-col>
 
         <v-col cols="12" sm="6">
-          <v-btn type="submit" color="primary" @click.prevent="setPrefix">
+          <v-btn type="submit" color="primary" :loading="loading">
             Submit
           </v-btn>
         </v-col>
@@ -30,6 +30,7 @@ export default {
   name: 'Prefix',
   data () {
     return {
+      loading: false,
       prefix: ''
     }
   },
@@ -38,6 +39,8 @@ export default {
   },
   methods: {
     async setPrefix () {
+      this.loading = true
+
       const response = await fetch(`http://localhost:8080/api/servers/${this.guild.id}/prefix/`, {
         method: 'PATCH',
         mode: 'cors',
@@ -51,6 +54,8 @@ export default {
       if (response.ok) {
         alert('Success')
       }
+
+      this.loading = false
     }
   }
 }

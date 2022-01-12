@@ -1,5 +1,5 @@
 <template>
-  <v-form>
+  <v-form @submit.prevent="createPoll">
     <v-container>
       <v-row>
         <v-col cols="12" sm="6">
@@ -89,7 +89,7 @@
 
       <v-row>
         <v-col cols="12">
-          <v-btn type="submit" color="primary" @click.prevent="createPoll">
+          <v-btn type="submit" color="primary" :loading="loading">
             Create Poll
           </v-btn>
 
@@ -110,6 +110,7 @@ export default {
   name: 'Poll',
   data () {
     return {
+      loading: false,
       title: '',
       newOption: '',
       options: [],
@@ -155,6 +156,8 @@ export default {
         return
       }
 
+      this.loading = true
+
       const response = await fetch(`http://localhost:8080/api/servers/${this.guild.id}/poll/`, {
         method: 'POST',
         mode: 'cors',
@@ -170,6 +173,7 @@ export default {
       }
 
       this.clearForm()
+      this.loading = false
     }
   }
 }
