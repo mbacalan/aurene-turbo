@@ -22,7 +22,8 @@
     "express-session": "^1.17.2",
     "mongoose": "^6.0.12",
     "nuxt": "^2.15.8",
-    "redis": "^3.1.2"
+    "redis": "^3.1.2",
+    "vue-discord-message": "^5.0.3"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.14.7",
