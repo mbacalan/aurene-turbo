@@ -54,7 +54,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['loggedIn', 'user', 'botUser', 'guild', 'activeMenu'])
+    ...mapState(['loggedIn', 'user', 'guild', 'activeMenu'])
   },
   async mounted () {
     const guild = this.user.guilds.find(guild => guild.id === this.$route.params.id)
