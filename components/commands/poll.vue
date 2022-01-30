@@ -169,7 +169,7 @@ export default {
       })
 
       if (response.ok) {
-        alert('Success')
+        this.$store.commit('setNotification', 'Poll Created!')
       }
 
       this.clearForm()
