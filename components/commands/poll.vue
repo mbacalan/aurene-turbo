@@ -36,7 +36,7 @@
       <v-row v-if="options.length">
         <v-col cols="12" sm="6">
           <transition-group name="poll-options" tag="ul">
-            <li v-for="(option, index) in options" :key="option" class="d-flex">
+            <li v-for="(option, index) in options" :key="option + index" class="d-flex">
               <p class="mr-auto">
                 {{ pollEmojiUnicodes[index] }} - {{ option }}
               </p>
@@ -78,7 +78,7 @@
             >
               <mention>everyone</mention>
               <discord-embed slot="embeds" :title="title">
-                <p v-for="(option, index) in options" :key="option" class="mb-2">
+                <p v-for="(option, index) in options" :key="option + index" class="mb-2">
                   {{ pollEmojiUnicodes[index] }} {{ option }}
                 </p>
               </discord-embed>
