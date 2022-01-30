@@ -15,9 +15,10 @@
     <v-list dense nav>
       <v-list-item-group color="primary" mandatory>
         <v-list-item
-          v-for="(menu, index) in menus"
+          v-for="(menu) in menus"
           :key="menu.title"
-          @click="setActiveMenu(index)"
+          nuxt
+          :to="`/${guild.id}/${menu.title.toLowerCase()}`"
         >
           <v-list-item-icon>
             <v-icon>{{ menu.icon }}</v-icon>
@@ -39,10 +40,18 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'Navigation',
-  props: {
-    menus: {
-      type: Array,
-      required: true
+  data () {
+    return {
+      menus: [
+        {
+          title: 'General',
+          icon: 'mdi-application-cog'
+        },
+        {
+          title: 'Poll',
+          icon: 'mdi-poll'
+        }
+      ]
     }
   },
   computed: {
