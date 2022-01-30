@@ -41,7 +41,7 @@ export default {
     async setNick () {
       this.loading = true
 
-      const response = await fetch(`http://localhost:8080/api/servers/${this.guild.id}/nick/`, {
+      const response = await fetch(`http://localhost:3000/api/servers/${this.guild.id}/nick/`, {
         method: 'PATCH',
         mode: 'cors',
         headers: {

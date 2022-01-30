@@ -17,7 +17,7 @@ export default {
       const discordParams = new URLSearchParams()
 
       discordParams.set('client_id', '412557634252570624')
-      discordParams.set('redirect_uri', 'http://localhost:8080/')
+      discordParams.set('redirect_uri', 'http://localhost:3000/')
       discordParams.set('response_type', 'code')
       discordParams.set('scope', 'identify guilds')
 

@@ -49,7 +49,7 @@ export default {
     ...mapState(['loggedIn', 'user', 'guild'])
   },
   async beforeMount () {
-    const response = await fetch('http://localhost:8080/api/user', {
+      const response = await fetch('http://localhost:3000/api/user', {
       method: 'GET',
       mode: 'cors',
       headers: {
@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     async login (code) {
-      const response = await fetch('http://localhost:8080/api/auth/login/', {
+      const response = await fetch('http://localhost:3000/api/auth/login/', {
         method: 'POST',
         mode: 'cors',
         headers: {

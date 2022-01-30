@@ -41,7 +41,7 @@ export default {
     async setPrefix () {
       this.loading = true
 
-      const response = await fetch(`http://localhost:8080/api/servers/${this.guild.id}/prefix/`, {
+      const response = await fetch(`http://localhost:3000/api/servers/${this.guild.id}/prefix/`, {
         method: 'PATCH',
         mode: 'cors',
         headers: {

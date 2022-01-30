@@ -158,7 +158,7 @@ export default {
 
       this.loading = true
 
-      const response = await fetch(`http://localhost:8080/api/servers/${this.guild.id}/poll/`, {
+      const response = await fetch(`http://localhost:3000/api/servers/${this.guild.id}/poll/`, {
         method: 'POST',
         mode: 'cors',
         headers: {

@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     async logout () {
-      const request = await fetch('http://localhost:8080/api/auth/logout', {
+      const request = await fetch('http://localhost:3000/api/auth/logout', {
         method: 'POST',
         mode: 'cors',
         credentials: 'include'
