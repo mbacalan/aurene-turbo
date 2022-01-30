@@ -1,4 +1,6 @@
-export default {
+import { defineNuxtConfig } from '@nuxt/bridge'
+
+export default defineNuxtConfig({
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Aurene Dashboard',
@@ -16,13 +18,8 @@ export default {
     ]
   },
 
-  server: {
-    port: 8080 // default: 3000
-  },
-
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    '@/assets/index.css'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -57,9 +54,9 @@ export default {
     '@nuxtjs/axios'
   ],
 
-  serverMiddleware: {
-    '/api': '~/api'
-  },
+  serverMiddleware: [
+    { path: '/api', handler: '~/api' }
+  ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},
@@ -67,4 +64,4 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
   }
-}
+})
