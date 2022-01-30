@@ -1,23 +1,22 @@
-const express = require('express')
-const session = require('express-session')
-const MongoStore = require('connect-mongo')
-const cors = require('cors')
+import 'dotenv/config'
+import express from 'express'
+import session from 'express-session'
+import MongoStore from 'connect-mongo'
+import cors from 'cors'
 
-const { mongooseConnection } = require('./utils/db')
-require('dotenv').config({ path: '.env.local' })
-require('./utils/db')
-require('./utils/bot')
+import { mongooseConnection } from './utils/db'
+import './utils/bot'
 
-const userRouter = require('./resources/user/user.router')
-const authRouter = require('./resources/auth/auth.router')
-const serversRouter = require('./resources/servers/servers.router')
+import { userRouter } from './resources/user/user.router'
+import { authRouter } from './resources/auth/auth.router'
+import serversRouter from './resources/servers/servers.router'
 
 const app = express()
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(cors({
-  origin: 'http://localhost:8080',
+  origin: 'http://localhost:3000',
   credentials: true
 }))
 app.use(session({
@@ -31,4 +30,4 @@ app.use('/user', userRouter)
 app.use('/auth', authRouter)
 app.use('/servers/:serverId', serversRouter)
 
-module.exports = app
+export default app

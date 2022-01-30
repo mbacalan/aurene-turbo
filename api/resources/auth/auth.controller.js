@@ -1,25 +1,25 @@
-const { httpClient } = require('../../utils/axios')
-const { bot } = require('../../utils/bot')
+import { httpClient } from '../../utils/axios'
+import { bot } from '../../utils/bot'
 
-class Controller {
+export default {
   async login (req, res) {
     if (!req.body.code) {
       return res.sendStatus(401)
     }
 
-    this.data = new URLSearchParams({
+    const data = new URLSearchParams({
       client_id: process.env.NUXT_APP_CLIENT_ID,
       client_secret: process.env.NUXT_APP_CLIENT_SECRET,
       code: req.body.code,
       grant_type: 'authorization_code',
-      redirect_uri: 'http://localhost:8080/',
+      redirect_uri: 'http://localhost:3000/',
       scope: 'identify guilds'
     })
 
     try {
       const { data: tokens } = await httpClient.post(
         '/oauth2/token',
-        this.data
+        data
       )
 
       const { data: user } = await httpClient.get('/users/@me',
@@ -53,7 +53,7 @@ class Controller {
 
       return res.sendStatus(500)
     }
-  }
+  },
 
   logout (req, res) {
     req.session.dTokens = null
@@ -62,5 +62,3 @@ class Controller {
     return res.sendStatus(200)
   }
 }
-
-module.exports = new Controller()
