@@ -1,5 +1,7 @@
 <template>
   <v-app-bar color="deep-purple accent-4" dense dark app clipped-left>
+    <v-app-bar-nav-icon @click.stop="toggleMenu" />
+
     <v-toolbar-title>
       <NuxtLink to="/">
         Aurene Dashboard
@@ -20,7 +22,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'Header',
   computed: {
-    ...mapState(['loggedIn'])
+    ...mapState(['loggedIn', 'appMenu'])
   },
   methods: {
     async logout () {
@@ -34,6 +36,9 @@ export default {
         this.$store.commit('logout')
         this.$router.push('/')
       }
+    },
+    toggleMenu () {
+      this.$store.commit('setAppMenu', !this.appMenu)
     }
   }
 }

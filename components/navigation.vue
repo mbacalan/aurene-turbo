@@ -1,5 +1,11 @@
 <template>
-  <v-navigation-drawer app bottom clipped>
+  <v-navigation-drawer
+    v-model="appMenu"
+    app
+    bottom
+    clipped
+    mobile-breakpoint="768"
+  >
     <v-list-item>
       <v-list-item-content>
         <v-list-item-title class="text-h6">
@@ -55,7 +61,15 @@ export default {
     }
   },
   computed: {
-    ...mapState(['user', 'guild', 'activeMenu'])
+    ...mapState(['user', 'guild', 'activeMenu']),
+    appMenu: {
+      get () {
+        return this.$store.state.appMenu
+      },
+      set (val) {
+        this.$store.commit('setAppMenu', val)
+      }
+    }
   },
   methods: {
     setActiveMenu (menu) {

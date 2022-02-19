@@ -3,6 +3,7 @@ export const state = () => ({
   user: {},
   botUser: {},
   guild: '',
+  appMenu: true,
   activeMenu: 0,
   notification: null
 })
@@ -21,6 +22,9 @@ export const mutations = {
   },
   setBotUser (state, botUser) {
     state.botUser = botUser
+  },
+  setAppMenu (state, menu) {
+    state.appMenu = menu
   },
   setActiveMenu (state, menu) {
     state.activeMenu = menu
