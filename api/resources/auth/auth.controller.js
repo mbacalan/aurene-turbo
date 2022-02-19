@@ -1,3 +1,4 @@
+import { Permissions } from 'discord.js'
 import { httpClient } from '../../utils/axios'
 import { bot } from '../../utils/bot'
 
@@ -38,8 +39,17 @@ export default {
         }
       )
 
+      guilds = guilds.filter((guild) => {
+        const permissions = new Permissions(guild.permissions_new)
+
+        if (permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
+          return true
+        }
+
+        return false
+      })
+
       user.avatar = bot.user.displayAvatarURL() // not the correct avatar
-      guilds = guilds.filter(guild => guild.owner == true)
 
       req.session.dTokens = tokens
       req.session.dUser = {
