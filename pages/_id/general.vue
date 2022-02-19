@@ -1,17 +1,28 @@
 <template>
   <section class="dashboard__general">
-    <nick />
-    <prefix />
-    <activity />
+    <p v-if="!guild.owner">
+      You don't have permission for these settings.
+    </p>
+
+    <div v-if="guild.owner">
+      <nick />
+      <prefix />
+      <activity />
+    </div>
 
     <notification />
   </section>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'GeneralConfig',
   layout: 'dashboard',
-  middleware: ['auth']
+  middleware: ['auth'],
+  computed: {
+    ...mapState(['guild'])
+  }
 }
 </script>
