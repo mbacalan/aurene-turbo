@@ -49,54 +49,38 @@ export default {
     ...mapState(['loggedIn', 'user', 'guild'])
   },
   async beforeMount () {
-      const response = await fetch('http://localhost:3000/api/user', {
-      method: 'GET',
-      mode: 'cors',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      },
-      credentials: 'include'
-    })
+    try {
+      const data = await this.$axios.$get('http://localhost:3000/api/user')
 
-    if (response.ok) {
-      const user = await response.json()
-
-      this.$store.commit('login', user)
-    }
-
-    if (!this.loggedIn && this.$route.query.code) {
-      return this.login(this.$route.query.code)
+      this.$store.commit('login', data)
+    } catch {
+      if (!this.loggedIn && this.$route.query.code) {
+        this.login(this.$route.query.code)
+      }
     }
   },
   methods: {
     async login (code) {
-      const response = await fetch('http://localhost:3000/api/auth/login/', {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8'
-        },
-        body: JSON.stringify({ code }),
-        credentials: 'include'
-      })
+      try {
+        const data = await this.$axios.$post(
+          'http://localhost:3000/api/auth/login/',
+          { code }
+        )
 
-      if (response.ok) {
-        const user = await response.json()
-
-        this.$store.commit('login', user)
+        this.$store.commit('login', data)
         this.$router.push('/')
+      } catch (e) {
+        console.log(e)
       }
     },
     async logout () {
-      const request = await fetch('http://localhost:8080/api/auth/logout', {
-        method: 'POST',
-        mode: 'cors',
-        credentials: 'include'
-      })
+      try {
+        await this.$axios.$post('http://localhost:3000/api/auth/logout')
 
-      if (request.ok) {
         this.$store.commit('logout')
         this.$router.push('/')
+      } catch (e) {
+        console.log(e)
       }
     }
   }

@@ -29,14 +29,12 @@ export default {
   },
   methods: {
     async setBotUser () {
-      const response = await fetch(`http://localhost:3000/api/servers/${this.guild.id}/config/`, {
-        mode: 'cors',
-        credentials: 'include'
-      })
+      try {
+        const data = await this.$axios.$get(`http://localhost:3000/api/servers/${this.guild.id}/config/`)
 
-      if (response.ok) {
-        const botUser = await response.json()
-        this.$store.commit('setBotUser', botUser)
+        this.$store.commit('setBotUser', data)
+      } catch (e) {
+        console.log(e)
       }
     }
   }
