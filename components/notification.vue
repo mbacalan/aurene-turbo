@@ -24,6 +24,15 @@ export default {
   computed: {
     ...mapState(['notification'])
   },
+  watch: {
+    notification (newVal, oldVal) {
+      if (newVal == null) {
+        return
+      }
+
+      setTimeout(() => this.$store.commit('setNotification', null), 5000)
+    }
+  },
   methods: {
     updateNotification (message) {
       this.$store.commit('setNotification', message)

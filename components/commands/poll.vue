@@ -158,21 +158,23 @@ export default {
 
       this.loading = true
 
-      const response = await fetch(`http://localhost:3000/api/servers/${this.guild.id}/poll/`, {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8'
-        },
-        body: JSON.stringify({ guild: this.guild.id, title: this.title, options: this.options }),
-        credentials: 'include'
-      })
+      try {
+        await this.$axios.$post(
+          `http://localhost:3000/api/servers/${this.guild.id}/poll/`,
+          {
+            guild: this.guild.id,
+            title: this.title,
+            options: this.options
+          }
+        )
 
-      if (response.ok) {
         this.$store.commit('setNotification', 'Poll Created!')
+        this.clearForm()
+      } catch (err) {
+        console.log(err)
+        this.$store.commit('setNotification', 'Error Creating Poll!')
       }
 
-      this.clearForm()
       this.loading = false
     }
   }

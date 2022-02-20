@@ -88,11 +88,9 @@ class Controller {
 
       pollEmbed.addFields(pollOptions)
 
-      const poll = await channel.send({ content: matchingRole, embeds: [pollEmbed] }).catch(() => {
-        channel.send("I'm lacking permissions to send an embed!")
+      const poll = await channel.send({ content: matchingRole, embeds: [pollEmbed] }).catch((err) => {
+        throw new Error('Error sending message', err)
       })
-
-      if (!poll) { return }
 
       for (let i = 0; i < options.length; i++) {
         await poll.react(pollEmojiUnicodes[i])
