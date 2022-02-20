@@ -6,7 +6,7 @@
 
     <div v-if="loggedIn">
       <p>
-        Select from menu
+        Select a category from the menu
       </p>
     </div>
   </section>

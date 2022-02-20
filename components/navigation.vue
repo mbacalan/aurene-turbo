@@ -21,7 +21,7 @@
     <v-list dense nav>
       <v-list-item-group color="primary" mandatory>
         <v-list-item
-          v-for="(menu) in menus"
+          v-for="(menu) in availableMenus"
           :key="menu.title"
           nuxt
           :to="`/${guild.id}/${menu.title.toLowerCase()}`"
@@ -51,17 +51,30 @@ export default {
       menus: [
         {
           title: 'General',
-          icon: 'mdi-application-cog'
+          icon: 'mdi-application-cog',
+          owner: true
         },
         {
           title: 'Poll',
-          icon: 'mdi-poll'
+          icon: 'mdi-poll',
+          owner: false
         }
       ]
     }
   },
   computed: {
     ...mapState(['user', 'guild', 'activeMenu']),
+    availableMenus () {
+      const filter = (m) => {
+        if (m.owner && this.guild.owner) {
+          return true
+        } else if (!m.owner) {
+          return true
+        }
+      }
+
+      return this.menus.filter(filter)
+    },
     appMenu: {
       get () {
         return this.$store.state.appMenu
