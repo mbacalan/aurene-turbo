@@ -47,17 +47,17 @@ export default {
   name: 'Home',
   data () {
     return {
-      compLoggedIn: false
+      loginStatus: false
     }
   },
   async fetch () {
-    this.compLoggedIn = await this.$axios.$get('http://localhost:3000/api/user')
+    this.loginStatus = await this.$axios.$get('http://localhost:3000/api/user')
   },
   computed: {
     ...mapState(['loggedIn', 'user', 'guild'])
   },
   watch: {
-    compLoggedIn (newVal, oldVal) {
+    loginStatus (newVal, oldVal) {
       if (newVal !== oldVal) {
         this.$store.commit('login', newVal)
       }
