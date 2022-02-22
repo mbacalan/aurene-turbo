@@ -5,23 +5,47 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'Login',
+  computed: {
+    ...mapState(['loggedIn'])
+  },
   mounted () {
     if (this.loggedIn && this.user) {
-      return this.$router.push('/')
+      this.$router.push('/')
+      return
     }
 
-    if (!this.loggedIn) {
-      const discordUrl = new URL('https://discord.com/api/oauth2/authorize')
-      const discordParams = new URLSearchParams()
+    if (!this.loggedIn && this.$route.query.code) {
+      this.login(this.$route.query.code)
+      return
+    }
 
-      discordParams.set('client_id', '412557634252570624')
-      discordParams.set('redirect_uri', 'http://localhost:3000/')
-      discordParams.set('response_type', 'code')
-      discordParams.set('scope', 'identify guilds')
+    const discordUrl = new URL('https://discord.com/api/oauth2/authorize')
+    const discordParams = new URLSearchParams()
 
-      window.location = `${discordUrl}?${discordParams}`
+    discordParams.set('client_id', '400644240746479616')
+    discordParams.set('redirect_uri', 'http://localhost:3000/login/')
+    discordParams.set('response_type', 'code')
+    discordParams.set('scope', 'identify guilds')
+
+    window.location = `${discordUrl}?${discordParams}`
+  },
+  methods: {
+    async login (code) {
+      try {
+        const data = await this.$axios.$post(
+          'http://localhost:3000/api/auth/login/',
+          { code }
+        )
+
+        this.$store.commit('login', data)
+        this.$router.push('/')
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
 }

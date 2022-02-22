@@ -45,42 +45,21 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'Home',
+  data () {
+    return {
+      compLoggedIn: false
+    }
+  },
+  async fetch () {
+    this.compLoggedIn = await this.$axios.$get('http://localhost:3000/api/user')
+  },
   computed: {
     ...mapState(['loggedIn', 'user', 'guild'])
   },
-  async beforeMount () {
-    try {
-      const data = await this.$axios.$get('http://localhost:3000/api/user')
-
-      this.$store.commit('login', data)
-    } catch {
-      if (!this.loggedIn && this.$route.query.code) {
-        this.login(this.$route.query.code)
-      }
-    }
-  },
-  methods: {
-    async login (code) {
-      try {
-        const data = await this.$axios.$post(
-          'http://localhost:3000/api/auth/login/',
-          { code }
-        )
-
-        this.$store.commit('login', data)
-        this.$router.push('/')
-      } catch (e) {
-        console.log(e)
-      }
-    },
-    async logout () {
-      try {
-        await this.$axios.$post('http://localhost:3000/api/auth/logout')
-
-        this.$store.commit('logout')
-        this.$router.push('/')
-      } catch (e) {
-        console.log(e)
+  watch: {
+    compLoggedIn (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.$store.commit('login', newVal)
       }
     }
   }

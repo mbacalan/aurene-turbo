@@ -13,7 +13,7 @@ export default {
       client_secret: process.env.NUXT_APP_CLIENT_SECRET,
       code: req.body.code,
       grant_type: 'authorization_code',
-      redirect_uri: 'http://localhost:3000/',
+      redirect_uri: 'http://localhost:3000/login/',
       scope: 'identify guilds'
     })
 
