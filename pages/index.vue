@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <div v-if="!loggedIn">
+    <div v-if="$fetchState.error">
       <p>
         Welcome, Guest. Log in to gain access to the dashboard!
       </p>
 
-      <NuxtLink v-if="!loggedIn" to="/login">
+      <NuxtLink to="/login">
         Log in
       </NuxtLink>
     </div>
