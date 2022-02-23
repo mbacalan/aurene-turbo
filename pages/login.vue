@@ -1,6 +1,8 @@
 <template>
   <div class="login">
     Redirecting...
+
+    <notification />
   </div>
 </template>
 
@@ -26,6 +28,7 @@ export default {
     const discordUrl = new URL('https://discord.com/api/oauth2/authorize')
     const discordParams = new URLSearchParams()
 
+    // TODO: Use env vars
     discordParams.set('client_id', '400644240746479616')
     discordParams.set('redirect_uri', 'http://localhost:3000/login/')
     discordParams.set('response_type', 'code')
@@ -44,7 +47,8 @@ export default {
         this.$store.commit('login', data)
         this.$router.push('/')
       } catch (e) {
-        console.log(e)
+        this.$store.commit('setNotification', 'Error loggin in!')
+        setTimeout(() => this.$router.push('/'), 5000)
       }
     }
   }
