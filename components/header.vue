@@ -1,6 +1,6 @@
 <template>
   <v-app-bar color="deep-purple accent-4" dense dark app clipped-left>
-    <v-app-bar-nav-icon @click.stop="toggleMenu" />
+    <v-app-bar-nav-icon v-if="onDashboard" @click.stop="toggleMenu" />
 
     <v-toolbar-title>
       <NuxtLink to="/">
@@ -22,19 +22,20 @@ import { mapState } from 'vuex'
 export default {
   name: 'Header',
   computed: {
-    ...mapState(['loggedIn', 'appMenu'])
+    ...mapState(['loggedIn', 'appMenu']),
+    onDashboard () {
+      return !!this.$route.params.id
+    }
   },
   methods: {
     async logout () {
-      const request = await fetch('http://localhost:3000/api/auth/logout', {
-        method: 'POST',
-        mode: 'cors',
-        credentials: 'include'
-      })
+      try {
+        await this.$axios.$post('http://localhost:3000/api/auth/logout')
 
-      if (request.ok) {
         this.$store.commit('logout')
         this.$router.push('/')
+      } catch (err) {
+        console.log(err)
       }
     },
     toggleMenu () {
