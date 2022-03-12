@@ -1,0 +1,17 @@
+{
+  "name": "database",
+  "version": "0.0.0",
+  "main": "./dist/index.js",
+  "types": "./dist/types.js",
+  "source": "./src/index.ts",
+  "files": [
+   "dist/**"
+  ],
+  "scripts": {
+    "dev": "tsc -w",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@types/webpack": "^5.28.0"
+  }
+}
