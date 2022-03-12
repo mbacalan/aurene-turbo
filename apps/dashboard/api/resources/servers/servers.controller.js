@@ -1,6 +1,5 @@
 const { MessageEmbed } = require('discord.js')
 const { Guilds } = require('database')
-const { ConfigModel } = require('../../utils/db')
 const { bot } = require('../../utils/bot')
 const { pollEmojis, pollEmojiUnicodes } = require('../../data/emoji')
 
@@ -32,7 +31,6 @@ class Controller {
 
       guild.config.giveawayChannel = giveawayChannel
       guild.config.starboardChannel = starboardChannel
-
       guild.save()
 
       return res.sendStatus(200)
@@ -57,11 +55,10 @@ class Controller {
 
   async updatePrefix (req, res) {
     try {
-      await ConfigModel.deleteMany({})
+      const guild = await Guilds.findOne({ _id: req.params.serverId })
 
-      await ConfigModel.create({
-        prefix: req.body.prefix
-      })
+      guild.config.prefix = req.body.prefix
+      guild.save()
 
       return res.sendStatus(200)
     } catch (error) {
