@@ -15,15 +15,15 @@ const configSchema = new mongoose_1.Schema({
         required: false,
     },
     giveawayChannel: {
-        type: Number,
+        type: String,
         required: false,
     },
     missionsChannel: {
-        type: Number,
+        type: String,
         required: false,
     },
     starboardChannel: {
-        type: Number,
+        type: String,
         required: false,
     },
     giveawayRole: {

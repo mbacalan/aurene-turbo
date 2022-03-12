@@ -35,8 +35,8 @@ class Giveaway implements Command {
     );
 
   async execute(interaction: CommandInteraction) {
-    // TODO: Get GIVEAWAY_CHANNEL from guild config
-    this.giveawayChannel = interaction.client.channels.cache.get(process.env.GIVEAWAY_CHANNEL) as TextChannel;
+    const guild = await Guilds.findOne({ _id: interaction.guild.id });
+    this.giveawayChannel = await interaction.client.channels.fetch(guild.config.giveawayChannel) as TextChannel;
 
     await this.create(interaction);
 
@@ -45,7 +45,16 @@ class Giveaway implements Command {
   }
 
   async create(interaction: CommandInteraction) {
-    if (this.giveawayChannel && (interaction.channel.id != this.giveawayChannel.id)) {
+    if (!this.giveawayChannel) {
+      interaction.reply({
+        content: "There is no givewaay channel set! Complain to your server owner about it!",
+        ephemeral: true
+      });
+
+      return;
+    }
+
+    if (interaction.channel.id != this.giveawayChannel.id) {
       interaction.reply({
         content: `You can only create giveaways in ${this.giveawayChannel} channel.`,
         ephemeral: true

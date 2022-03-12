@@ -5,9 +5,9 @@ export interface IConfig {
   prefix: string,
   leaders?: number,
   officers?: number,
-  giveawayChannel?: number,
-  missionsChannel?: number,
-  starboardChannel?: number,
+  giveawayChannel?: string,
+  missionsChannel?: string,
+  starboardChannel?: string,
   giveawayRole?: number
 }
 
