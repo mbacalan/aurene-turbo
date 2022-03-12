@@ -55,6 +55,11 @@ export default {
           owner: true
         },
         {
+          title: 'Channels',
+          icon: 'mdi-message-cog',
+          owner: true
+        },
+        {
           title: 'Poll',
           icon: 'mdi-poll',
           owner: false
