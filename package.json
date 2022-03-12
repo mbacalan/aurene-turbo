@@ -8,12 +8,9 @@
   ],
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev --parallel",
-    "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "dev": "turbo run dev --parallel"
   },
   "devDependencies": {
-    "prettier": "^2.5.1",
     "turbo": "latest"
   },
   "engines": {
