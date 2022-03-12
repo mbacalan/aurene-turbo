@@ -5,6 +5,8 @@ const serversRouter = Router({ mergeParams: true })
 
 serversRouter
   .get('/config', serversController.getConfig)
+  .get('/channels', serversController.getChannels)
+  .patch('/channels', serversController.setChannels)
   .patch('/nick', serversController.updateNick)
   .patch('/prefix', serversController.updatePrefix)
   .patch('/activity', serversController.updateActivity)

@@ -13,6 +13,39 @@ class Controller {
     return res.json(botUser)
   }
 
+  getChannels (req, res) {
+    const guild = bot.guilds.cache.get(req.params.serverId)
+    let channels = guild.channels.cache
+
+    channels = channels.filter(c => c.type == 'GUILD_TEXT')
+
+    return res.json(channels)
+  }
+
+  async setChannels (req, res) {
+    const giveawayChannel = req.body.giveawayChannel
+    const starboardChannel = req.body.starboardChannel
+    const channels = {}
+
+    if (giveawayChannel) {
+      channels.giveawayChannel = giveawayChannel
+    }
+
+    if (starboardChannel) {
+      channels.starboardChannel = starboardChannel
+    }
+
+    try {
+      await ConfigModel.updateOne(channels).exec()
+
+      return res.sendStatus(200)
+    } catch (error) {
+      console.log(error)
+
+      return res.sendStatus(500)
+    }
+  }
+
   async updateNick (req, res) {
     try {
       const data = await bot.user.setUsername(req.body.nick)
