@@ -3,8 +3,7 @@ import express from 'express'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
 import cors from 'cors'
-
-import { connection } from './utils/db'
+import { db } from 'database'
 import './utils/bot'
 
 import { userRouter } from './resources/user/user.router'
@@ -23,7 +22,7 @@ app.use(session({
   secret: process.env.NUXT_APP_SECRET,
   resave: true,
   saveUninitialized: false,
-  store: MongoStore.create(connection)
+  store: MongoStore.create(db)
 }))
 
 app.use('/user', userRouter)
