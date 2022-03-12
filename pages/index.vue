@@ -51,7 +51,11 @@ export default {
     }
   },
   async fetch () {
-    this.loginStatus = await this.$axios.$get('http://localhost:3000/api/user')
+    try {
+      this.loginStatus = await this.$axios.$get('http://localhost:3000/api/user')
+    } catch (e) {
+      console.log(e)
+    }
   },
   computed: {
     ...mapState(['loggedIn', 'user', 'guild'])
