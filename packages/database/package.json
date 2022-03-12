@@ -11,7 +11,8 @@
     "dev": "tsc -w",
     "build": "tsc"
   },
-  "dependencies": {
-    "@types/webpack": "^5.28.0"
+  "devDependencies": {
+    "@types/webpack": "^5.28.0",
+    "tsconfig": "*"
   }
 }
