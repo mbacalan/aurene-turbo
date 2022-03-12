@@ -3,6 +3,21 @@
     <v-container>
       <v-row>
         <v-col cols="12" sm="6">
+          <v-select
+            v-model="channel"
+            :items="channels"
+            item-text="name"
+            item-value="id"
+            label="Poll Channel"
+            hide-details="auto"
+            outlined
+            dense
+          />
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col cols="12" sm="6">
           <v-text-field
             v-model="title"
             label="Title"
@@ -111,6 +126,8 @@ export default {
   data () {
     return {
       loading: false,
+      channels: [],
+      channel: '',
       title: '',
       newOption: '',
       options: [],
@@ -121,6 +138,17 @@ export default {
     ...mapState(['guild']),
     isFormDirty () {
       return !!((this.title.length || this.options.length))
+    }
+  },
+  async mounted () {
+    try {
+      const data = await this.$axios.$get(
+        `http://localhost:3000/api/servers/${this.guild.id}/channels/`
+      )
+
+      this.channels = data
+    } catch (e) {
+      console.log(e)
     }
   },
   methods: {
@@ -162,7 +190,7 @@ export default {
         await this.$axios.$post(
           `http://localhost:3000/api/servers/${this.guild.id}/poll/`,
           {
-            guild: this.guild.id,
+            channel: this.channel,
             title: this.title,
             options: this.options
           }

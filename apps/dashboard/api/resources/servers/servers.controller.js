@@ -87,9 +87,8 @@ class Controller {
   }
 
   async createPoll (req, res) {
-    const guild = bot.guilds.cache.get(req.body.guild)
-    // TODO: Dynamic channel
-    const channel = bot.channels.cache.get('729370843280441414')
+    const guild = bot.guilds.cache.get(req.params.serverId)
+    const channel = bot.channels.cache.get(req.body.channel)
 
     if (!guild || !channel) {
       return res.sendStatus(500)
