@@ -3,8 +3,8 @@ import { Types, Document } from "mongoose";
 
 declare module "discord.js" {
   interface Client {
+    statics: Collection<string, Command>;
     commands: Collection<string, Command>;
-    slashCommands: Collection<string, Command>;
   }
 }
 

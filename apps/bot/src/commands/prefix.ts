@@ -1,35 +1,47 @@
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { redisClient, logger } from "../utils";
 import { Guilds } from "database";
-import { Command, CommandParams } from "../types";
-import { redisClient, logger } from "../utils/";
+import { Interaction } from "../types";
+import { CommandInteraction } from "discord.js";
 
-class Prefix implements Command {
+class Prefix implements Interaction {
   name = "prefix";
-  description = "Change bot's prefix";
+  data = new SlashCommandBuilder()
+    .setName(this.name)
+    .setDescription("Change bot's prefix")
+    .setDefaultPermission(false)
+    .addStringOption(option =>
+      option
+        .setName("prefix")
+        .setDescription("Enter a new prefix")
+      );
 
-  async execute({ message, args, isOwner, isRanking }: CommandParams) {
-    if (!args.length) {
+  async execute(interaction: CommandInteraction) {
+    const newPrefix = interaction.options.getString("prefix");
+
+    if (!newPrefix) {
       redisClient.get("prefix", (err, val) => {
         if (err) {
           return logger.error("Error reading from Redis: ", err);
         }
 
-        message.reply(`Current prefix is: "${val}"`);
+        interaction.reply({ content: `Current prefix is: "${val}"`, ephemeral: true });
       });
 
       return;
     }
 
-    if (args.length > 1 && (isOwner || isRanking)) {
-      return message.reply("Prefix can only be 1 character long.");
+    // TODO: Set isOwner & isRanking permissions
+    if (newPrefix.length > 1) {
+      return interaction.reply("Prefix can only be 1 character long.");
     }
 
-    const guild = await Guilds.findOne({ _id: message.guild.id });
+    const guild = await Guilds.findOne({ _id: interaction.guild.id });
 
-    guild.config.prefix = args[0];
-
+    guild.config.prefix = newPrefix;
     guild.save();
-    redisClient.set("prefix", args[0]);
-    message.react("✅");
+    redisClient.set("prefix", newPrefix);
+    interaction.reply({ content: `Prefix set to: "${newPrefix}"`, ephemeral: true });
   }
 }
 

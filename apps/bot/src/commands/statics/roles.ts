@@ -1,9 +1,8 @@
 import { TextChannel, MessageEmbed } from "discord.js";
 import emoji from "emoji-dictionary";
-import { Command, CommandParams } from "../types";
-import { logger } from "../utils/";
-import { roleEmojis, roleEmojiUnicodes } from "../data/";
-
+import { Command, CommandParams } from "../../types";
+import { logger } from "../../utils/";
+import { roleEmojis, roleEmojiUnicodes } from "../../data/";
 
 // TODO: Doesn't work, unused, disable?
 class Roles implements Command {
