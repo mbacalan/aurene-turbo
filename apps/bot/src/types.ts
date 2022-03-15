@@ -52,7 +52,6 @@ export interface InteractionParams {
 
 // Mongoose Models
 export interface IConfig {
-  prefix: string,
   leaders?: number,
   officers?: number,
   giveawayChannel?: string,

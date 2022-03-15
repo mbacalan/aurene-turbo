@@ -2,7 +2,6 @@ import { Types, Document } from "mongoose";
 
 // Mongoose Models
 export interface IConfig {
-  prefix: string,
   leaders?: number,
   officers?: number,
   giveawayChannel?: string,

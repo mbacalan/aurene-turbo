@@ -53,21 +53,6 @@ class Controller {
     }
   }
 
-  async updatePrefix (req, res) {
-    try {
-      const guild = await Guilds.findOne({ _id: req.params.serverId })
-
-      guild.config.prefix = req.body.prefix
-      guild.save()
-
-      return res.sendStatus(200)
-    } catch (error) {
-      console.log(error)
-
-      return res.sendStatus(500)
-    }
-  }
-
   updateActivity (req, res) {
     let { activity, type } = req.body
 

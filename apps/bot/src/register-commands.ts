@@ -28,7 +28,7 @@ const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
     console.log('Started refreshing application (/) commands.');
 
     await rest.put(
-      Routes.applicationCommands("400644240746479616"),
+      Routes.applicationCommands("412557634252570624"),
       { body: commands },
     );
 

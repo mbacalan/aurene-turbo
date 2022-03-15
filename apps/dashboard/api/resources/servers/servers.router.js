@@ -8,7 +8,6 @@ serversRouter
   .get('/channels', serversController.getChannels)
   .patch('/channels', serversController.setChannels)
   .patch('/nick', serversController.updateNick)
-  .patch('/prefix', serversController.updatePrefix)
   .patch('/activity', serversController.updateActivity)
   .post('/poll', serversController.createPoll)
 

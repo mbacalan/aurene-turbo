@@ -6,7 +6,6 @@
 
     <div v-if="guild.owner">
       <nick />
-      <prefix />
       <activity />
     </div>
 

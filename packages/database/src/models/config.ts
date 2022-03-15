@@ -1,12 +1,8 @@
 import { Schema } from "mongoose";
 import { IConfig } from '../types';
 
+// TODO: Ranks might be required
 const configSchema = new Schema<IConfig>({
-  prefix: {
-    type: String,
-    required: true,
-    default: ">",
-  },
   leaders: {
     type: Number,
     required: false,
