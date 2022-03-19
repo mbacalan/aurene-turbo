@@ -25,12 +25,12 @@
         </div>
       </div>
 
-      <p>Select a server below to manage Aurene on.</p>
+      <p>Select a server below to manage Aurene on:</p>
     </div>
 
     <section v-if="loggedIn">
       <ul class="server-list">
-        <li v-for="guild in user.guilds" :key="guild.id">
+        <li v-for="guild in botGuilds" :key="guild.id">
           <NuxtLink :to="guild.id">
             {{ guild.name }}
           </NuxtLink>
@@ -47,7 +47,8 @@ export default {
   name: 'Home',
   data () {
     return {
-      loginStatus: false
+      loginStatus: false,
+      botGuilds: []
     }
   },
   async fetch () {
@@ -64,6 +65,13 @@ export default {
     loginStatus (newVal, oldVal) {
       this.$store.commit('login', newVal)
     }
+  },
+  async mounted () {
+    const botGuilds = await this.$axios.$get('http://localhost:3000/api/user/bot')
+
+    this.botGuilds = this.user.guilds.filter(
+      guild => botGuilds.includes(guild.id)
+    )
   }
 }
 </script>
