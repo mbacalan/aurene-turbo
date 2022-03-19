@@ -1,10 +1,10 @@
-const { MessageEmbed } = require('discord.js')
-const { Guilds } = require('database')
-const { bot } = require('../../utils/bot')
-const { pollEmojis, pollEmojiUnicodes } = require('../../data/emoji')
+import { MessageEmbed } from 'discord.js'
+import { Guilds } from 'database'
+import { bot } from '../../utils/bot'
+import { pollEmojis, pollEmojiUnicodes } from '../../data/emoji'
 
 class Controller {
-  getConfig (req, res) {
+  getConfig (_req, res) {
     const botUser = {
       ...bot.user,
       activity: bot.user.presence
@@ -116,4 +116,4 @@ class Controller {
   }
 }
 
-module.exports = new Controller()
+export const ServerController = new Controller()

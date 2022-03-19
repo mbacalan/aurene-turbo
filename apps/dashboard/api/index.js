@@ -3,13 +3,14 @@ import express from 'express'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
 import cors from 'cors'
-import { db } from 'database'
+import database from 'database'
 import './utils/bot'
 
 import { userRouter } from './resources/user/user.router'
 import { authRouter } from './resources/auth/auth.router'
-import serversRouter from './resources/servers/servers.router'
+import { serversRouter } from './resources/servers/servers.router'
 
+const { db } = database
 const app = express()
 
 app.use(express.urlencoded({ extended: false }))

@@ -1,14 +1,14 @@
-const { Router } = require('express')
-const serversController = require('./servers.controller')
+import { Router } from 'express'
+import { ServerController } from './servers.controller'
 
 const serversRouter = Router({ mergeParams: true })
 
 serversRouter
-  .get('/config', serversController.getConfig)
-  .get('/channels', serversController.getChannels)
-  .patch('/channels', serversController.setChannels)
-  .patch('/nick', serversController.updateNick)
-  .patch('/activity', serversController.updateActivity)
-  .post('/poll', serversController.createPoll)
+  .get('/config', ServerController.getConfig)
+  .get('/channels', ServerController.getChannels)
+  .patch('/channels', ServerController.setChannels)
+  .patch('/nick', ServerController.updateNick)
+  .patch('/activity', ServerController.updateActivity)
+  .post('/poll', ServerController.createPoll)
 
-module.exports = serversRouter
+export { serversRouter }

@@ -1,4 +1,4 @@
-const axios = require('axios')
+import axios from 'axios'
 
 const httpClient = axios.create({
   baseURL: 'https://discord.com/api',
@@ -7,6 +7,4 @@ const httpClient = axios.create({
   }
 })
 
-module.exports = {
-  httpClient
-}
+export { httpClient }

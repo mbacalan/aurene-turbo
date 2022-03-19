@@ -1,4 +1,4 @@
-const { Client, Intents } = require('discord.js')
+import { Client, Intents } from 'discord.js'
 
 const bot = new Client({
   intents: [
@@ -18,6 +18,4 @@ bot.once('ready', () => {
 
 bot.login(process.env.NUXT_APP_CLIENT_TOKEN)
 
-module.exports = {
-  bot
-}
+export { bot }
