@@ -8,7 +8,7 @@ const db = connection;
 db.on("error", () => console.error("Error connecting to database"));
 db.once("open", () => console.info("Successfully connected to database"));
 
-export { db };
+export default db;
 export * from "./models/achievements";
 export * from "./models/bosses";
 export * from "./models/builds";

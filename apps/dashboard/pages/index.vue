@@ -67,6 +67,9 @@ export default {
     }
   },
   async mounted () {
+    if (!this.user.value) {
+      return
+    }
     const botGuilds = await this.$axios.$get('http://localhost:3000/api/user/bot')
 
     this.botGuilds = this.user.guilds.filter(

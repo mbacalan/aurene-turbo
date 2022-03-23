@@ -1,7 +1,9 @@
 import { MessageEmbed } from 'discord.js'
-import { Guilds } from 'database'
+import database from 'database'
 import { bot } from '../../utils/bot'
 import { pollEmojis, pollEmojiUnicodes } from '../../data/emoji'
+
+const { Guilds } = database
 
 class Controller {
   getConfig (_req, res) {

@@ -3,7 +3,6 @@ import { config } from "dotenv";
 
 config({ path: resolve(__dirname, "../.env") });
 
-import "database";
 import { Client, Collection, Intents } from "discord.js";
 import glob from "glob";
 import { Guilds } from "database";
