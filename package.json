@@ -10,15 +10,15 @@
     "build": "turbo run build",
     "dev": "turbo run dev --parallel"
   },
+  "dependencies": {
+    "typescript": "^4.6.3"
+  },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.14.0",
-    "@typescript-eslint/parser": "^5.14.0",
-    "turbo": "latest",
-    "typescript-eslint-parser": "^22.0.0"
+    "turbo": "latest"
   },
   "engines": {
-    "npm": ">=7.0.0",
-    "node": ">=14.0.0"
+    "npm": ">=8.0.0",
+    "node": ">=16.0.0"
   },
   "packageManager": "yarn@1.22.18"
 }
