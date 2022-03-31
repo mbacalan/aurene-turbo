@@ -1,7 +1,7 @@
 import { connect, connection } from "mongoose";
 // import { logger } from "./";
 
-connect(process.env.MONGO_URI || "mongodb://localhost:27017/local");
+connect(process.env.MONGO_URI || "mongodb://mongodb:27017/local");
 
 const db = connection;
 
